@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievement Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="min-h-screen p-8">
+        <h1 class="text-4xl font-bold text-center mb-8">Achievement Gallery</h1>
+        
+        <div class="max-w-2xl mx-auto">
+            <form method="POST" action="https://api.staticman.net/v3/entry/github/Reyansh-Niranjan/achievements/main/achievements" class="flex flex-col gap-4 mb-8">
+                <input type="hidden" name="options[redirect]" value="https://reyansh-niranjan.github.io/achievements">
+                <input
+                    name="fields[name]"
+                    placeholder="Your Name"
+                    required
+                    class="border p-2 rounded"
+                />
+                <input
+                    name="fields[achievement]"
+                    placeholder="Achievement Title"
+                    required
+                    class="border p-2 rounded"
+                />
+                <textarea
+                    name="fields[description]"
+                    placeholder="Description"
+                    required
+                    class="border p-2 rounded h-32"
+                ></textarea>
+                <button 
+                    type="submit"
+                    class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+                >
+                    Share Achievement
+                </button>
+            </form>
+
+            <div id="achievements" class="grid gap-4">
+                <!-- Achievements will be loaded here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        // We'll load achievements from _data/achievements
+        fetch('_data/achievements.json')
+            .then(response => response.json())
+            .then(achievements => {
+                const container = document.getElementById('achievements');
+                achievements.forEach(post => {
+                    container.innerHTML += `
+                        <div class="border rounded p-4">
+                            <h3 class="font-bold">${post.achievement}</h3>
+                            <p class="text-sm text-gray-500">Posted by ${post.name}</p>
+                            <p class="mt-2">${post.description}</p>
+                        </div>
+                    `;
+                });
+            });
+    </script>
+</body>
+</html>

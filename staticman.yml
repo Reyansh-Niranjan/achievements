@@ -1,0 +1,16 @@
+achievements:
+  allowedFields: ["name", "achievement", "description"]
+  branch: "main"
+  commitMessage: "New achievement submission"
+  filename: "{fields.achievement}"
+  format: "yaml"
+  moderation: true
+  path: "_data/achievements"
+  requiredFields: ["name", "achievement", "description"]
+  transforms:
+    description: frontmatterContent
+  generatedFields:
+    date:
+      type: date
+      options:
+        format: "timestamp-seconds"
